@@ -1,13 +1,30 @@
-name: benchmark
-run-name: ${{ github.actor }} is learning GitHub Actions
-on: [push]
+name: Performance Benchmarking
+
+# Trigger the action on code push or pull request
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
-  check-bats-version:
+  benchmark:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      - run: npm install -g bats
-      - run: bats -v
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v2
+
+    - name: Run Docker Compose
+      run: |
+        docker-compose up -d # This will run your containers (e.g., TeaStore)
+    
+    - name: Run Benchmark Script
+      run: |
+        # This will execute the script for running the load test on TeaStore
+        ./run-benchmark.sh
