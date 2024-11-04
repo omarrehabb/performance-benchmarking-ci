@@ -1,18 +1,11 @@
-name: Performance Benchmarking
+name: Run Performance Benchmark
 
-# Trigger the action on code push or pull request
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+on: [push, pull_request]
 
 jobs:
   benchmark:
     runs-on: ubuntu-latest
-
+    
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
@@ -25,11 +18,6 @@ jobs:
         sudo apt-get update
         sudo apt-get install docker-compose-plugin
 
-    - name: Run Docker Compose
-      run: |
-        docker-compose up -d # This will run your containers (e.g., TeaStore)
-    
     - name: Run Benchmark Script
       run: |
-        # This will execute the script for running the load test on TeaStore
         ./run-benchmark.sh
