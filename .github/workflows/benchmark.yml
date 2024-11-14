@@ -23,4 +23,4 @@ jobs:
 
     - name: Run Benchmark Script
       run: |
-        ./.github/run-benchmark.sh
+        bash ./.github/run-benchmark.sh
