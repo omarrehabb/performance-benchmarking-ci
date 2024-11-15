@@ -16,6 +16,7 @@ jobs:
     - name: Set up Docker
       uses: docker/setup-buildx-action@v2
 
+      # Using docker to run all the teastore microservices
     - name: Run Registry
       run: docker run -e "HOST_NAME=127.0.0.1" -e "SERVICE_PORT=10000" -p 10000:8080 -d descartesresearch/teastore-registry
     
@@ -36,6 +37,12 @@ jobs:
 
     - name: Run Web UI
       run: docker run -e "REGISTRY_HOST=127.0.0.1" -e "REGISTRY_PORT=10000" -e "HOST_NAME=127.0.0.1" -e "SERVICE_PORT=8080" -p 8080:8080 -d descartesresearch/teastore-webui
+
+      # Installing wrk to run the load tests
+    - name: Install wrk
+      run : |
+        sudo apt-get update
+        sudo apt-get install -y wrk  
 
     - name: Run Benchmark Script
       run: |
