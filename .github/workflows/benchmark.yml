@@ -16,10 +16,26 @@ jobs:
     - name: Set up Docker
       uses: docker/setup-buildx-action@v2
 
-    # - name: Install Docker Compose
-    #   run: |
-    #     sudo apt-get update
-    #     sudo apt-get install docker-compose-plugin
+    - name: Run Registry
+      run: docker run -e "HOST_NAME=127.0.0.1" -e "SERVICE_PORT=10000" -p 10000:8080 -d descartesresearch/teastore-registry
+    
+    - name: Run Database
+      run: docker run -p 3306:3306 -d descartesresearch/teastore-db
+    
+    - name: Run Persistance Service
+      run: docker run -e "REGISTRY_HOST=127.0.0.1" -e "REGISTRY_PORT=10000" -e "HOST_NAME=127.0.0.1" -e "SERVICE_PORT=1111" -e "DB_HOST=10.1.2.20" -e "DB_PORT=3306" -p 1111:8080 -d descartesresearch/teastore-persistence
+
+    - name: Run Authentication Service
+      run: docker run -e "REGISTRY_HOST=127.0.0.1" -e "REGISTRY_PORT=10000" -e "HOST_NAME=127.0.0.1" -e "SERVICE_PORT=2222" -p 2222:8080 -d descartesresearch/teastore-auth
+    
+    - name: Run Recommender Service
+      run: docker run -e "REGISTRY_HOST=127.0.0.1" -e "REGISTRY_PORT=10000" -e "HOST_NAME=127.0.0.1" -e "SERVICE_PORT=3333" -p 3333:8080 -d descartesresearch/teastore-recommender
+
+    - name: Run Image Provider
+      run: docker run -e "REGISTRY_HOST=127.0.0.1" -e "REGISTRY_PORT=10000" -e "HOST_NAME=127.0.0.1" -e "SERVICE_PORT=4444" -p 4444:8080 -d descartesresearch/teastore-image
+
+    - name: Run Web UI
+      run: docker run -e "REGISTRY_HOST=127.0.0.1" -e "REGISTRY_PORT=10000" -e "HOST_NAME=127.0.0.1" -e "SERVICE_PORT=8080" -p 8080:8080 -d descartesresearch/teastore-webui
 
     - name: Run Benchmark Script
       run: |
