@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  teastore-db:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: teastore
+
+  teastore-web:
+    image: docker.io/dennisjung85/teastore-webui
+    ports:
+      - "8080:8080"
+    depends_on:
+      - teastore-db
