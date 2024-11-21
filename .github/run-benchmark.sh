@@ -18,8 +18,7 @@ docker run -d --name teastore-recommender -e "REGISTRY_HOST=localhost" -e "REGIS
 docker run -d --name teastore-webui -e "REGISTRY_HOST=localhost" -e "REGISTRY_PORT=10000" -e "HOST_NAME=localhost" -e "SERVICE_PORT=8080" -p 8080:8080 teastore-webui
 
 echo "Waiting for services to initialize..."
-# You might want to wait for services to fully initialize (e.g., sleep for 10-20 seconds)
-sleep 30  # Adjust this based on your environment and startup time.
+sleep 30  
 
 echo "Running load tests..."
 
