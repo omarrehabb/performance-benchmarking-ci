@@ -19,7 +19,7 @@ jobs:
     - name: Build Docker containers
       run: |
         echo "Building docker containers..." 
-        chmod +x tools/build_docker.sh
+        chmod +x ./.github/build_docker.sh
         ./.github/build_docker.sh
 
 
