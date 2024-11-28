@@ -15,7 +15,7 @@ jobs:
 
     - name: Clone TeaStore repository
       run: |
-        git clone https://github.com/DescartesResearch/TeaStore.git /d/Me/Lancaster/Third\ Year\ Project/performance-benchmarking-ci/TeaStore
+        git clone https://github.com/DescartesResearch/TeaStore.git ./TeaStore
 
     - name: Navigate to the TeaStore directory
       run: cd /d/Me/Lancaster/Third\ Year\ Project/performance-benchmarking-ci/TeaStore
