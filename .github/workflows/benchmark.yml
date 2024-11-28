@@ -17,14 +17,14 @@ jobs:
       run: |
         git clone https://github.com/DescartesResearch/TeaStore.git ./TeaStore
 
-    - name: Navigate to the TeaStore directory
-      run: cd /d/Me/Lancaster/Third\ Year\ Project/performance-benchmarking-ci/TeaStore
-
     - name: Build Docker containers
       run: |
         echo "Building docker containers..." 
-        chmod +x ./.github/build_docker.sh
-        ./.github/build_docker.sh
+        cd ./TeaStore
+        ./tools/build_docker.sh
+
+        # chmod +x ./.github/build_docker.sh
+        # ./.github/build_docker.sh
 
     - name: Run Benchmark Script
       run: |
