@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 echo "Starting TeaStore containers for load testing..."
 
 # Start the registry
