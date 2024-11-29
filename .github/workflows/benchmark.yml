@@ -19,7 +19,7 @@ jobs:
 
     - name: Run Java package
       run:
-        mvn clean package -DskipTests
+        ./mvnw clean package -DskipTests 
  
 
     - name: Build Docker containers
