@@ -17,10 +17,16 @@ jobs:
       run: |
         git clone https://github.com/DescartesResearch/TeaStore.git ./TeaStore
 
+    - name: Run Java package
+      run:
+        mvn clean package -DskipTests
+ 
+
     - name: Build Docker containers
       run: |
         echo "Building docker containers..." 
         cd ./TeaStore
+        export DEPLOY=0
         ./tools/build_docker.sh
 
         # chmod +x ./.github/build_docker.sh
