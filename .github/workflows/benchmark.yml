@@ -17,10 +17,12 @@ jobs:
       run: |
         git clone https://github.com/DescartesResearch/TeaStore.git ./TeaStore
 
-    - name: List Contents After Clone
+    - name: Edit build_docker.sh to fix paths
       run: |
-        echo "Listing contents after cloning TeaStore:"
-        ls -la ./TeaStore  # List the files and directories after clone
+        echo "Editing build_docker.sh..."
+        sed -i 's|\.\./||g' ./TeaStore/tools/build_docker.sh
+        echo "Listing edited build_docker.sh:"
+        cat ./TeaStore/tools/build_docker.sh  # Check the file after editing
 
     - name: Set up Java 11
       uses: actions/setup-java@v3
