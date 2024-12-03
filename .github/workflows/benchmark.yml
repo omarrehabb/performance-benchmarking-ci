@@ -17,10 +17,19 @@ jobs:
       run: |
         git clone https://github.com/DescartesResearch/TeaStore.git ./TeaStore
 
-    - name: Run Java package
-      run:
-        ./mvnw clean package -DskipTests 
- 
+
+    - name: Set up Java 11
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'adopt'
+        java-version: '11'
+
+    - name: Set up Maven
+      run: sudo apt-get install maven -y
+
+    - name: Build TeaStore project
+      run: cd ./TeaStore && mvn clean package -DskipTests
+
 
     - name: Build Docker containers
       run: |
