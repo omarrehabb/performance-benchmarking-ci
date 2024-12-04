@@ -1,36 +1,47 @@
 #!/bin/bash
 
-set -e
+# Function to check if JMeter is installed
+check_jmeter_installed() {
+  if ! command -v jmeter &> /dev/null
+  then
+      echo "JMeter could not be found, installing JMeter..."
+      sudo apt-get update
+      sudo apt-get install -y jmeter
+  else
+      echo "JMeter is already installed."
+  fi
+}
 
-echo "Starting TeaStore containers for load testing..."
+# Ensure JMeter is installed
+check_jmeter_installed
 
-# Start the registry
-docker run -d --name teastore-registry -e "HOST_NAME=localhost" -e "SERVICE_PORT=10000" -p 10000:8080 teastore-registry
+# Ensure Docker containers are running
+docker ps | grep teastore
+if [ $? -ne 0 ]; then
+  echo "TeaStore containers are not running. Ensure the services are up before running the benchmark."
+  exit 1
+fi
 
-# Start the database
-docker run -d --name teastore-db -p 3306:3306 teastore-db
+# Define variables
+JMETER_TEST_PLAN="./performance_tests/teastore_load_test.jmx"  # Path to your .jmx test plan
+RESULTS_DIR="./performance_tests/results"                      # Directory to save results
+RESULTS_FILE="$RESULTS_DIR/results_$(date +%Y%m%d_%H%M%S).jtl" # Timestamped results file
+DOCKER_NETWORK="teastore_default"                              # Docker network name (verify with `docker network ls`)
 
-# Start the persistence service
-docker run -d --name teastore-persistence -e "REGISTRY_HOST=localhost" -e "REGISTRY_PORT=10000" -e "HOST_NAME=localhost" -e "SERVICE_PORT=1111" -e "DB_HOST=localhost" -e "DB_PORT=3306" -p 1111:8080 teastore-persistence
+# Create results directory if it doesn't exist
+mkdir -p $RESULTS_DIR
 
-# Start the recommender service
-docker run -d --name teastore-recommender -e "REGISTRY_HOST=localhost" -e "REGISTRY_PORT=10000" -e "HOST_NAME=localhost" -e "SERVICE_PORT=2222" -p 2222:8080 teastore-recommender
+echo "Running JMeter load test on TeaStore services..."
 
-# Start the webUI
-docker run -d --name teastore-webui -e "REGISTRY_HOST=localhost" -e "REGISTRY_PORT=10000" -e "HOST_NAME=localhost" -e "SERVICE_PORT=8080" -p 8080:8080 teastore-webui
+# Run JMeter in non-GUI mode targeting the running Docker containers
+jmeter -n -t "$JMETER_TEST_PLAN" -l "$RESULTS_FILE" -e -o "$RESULTS_DIR/html_report"
 
-echo "Waiting for services to initialize..."
-sleep 30  
-
-echo "Running load tests..."
-
-# JMeter Command:
-jmeter -n -t path_to_your_test.jmx -l results.jtl
-
-echo "Stopping and cleaning up containers..."
-
-# Stop and remove all containers after the test
-docker stop teastore-registry teastore-db teastore-persistence teastore-recommender teastore-webui
-docker rm teastore-registry teastore-db teastore-persistence teastore-recommender teastore-webui
-
-echo "Load testing complete. Results saved in results.jtl."
+# Check if the test was successful
+if [ $? -eq 0 ]; then
+    echo "JMeter load test completed successfully."
+    echo "Results saved in $RESULTS_FILE"
+    echo "HTML Report generated at $RESULTS_DIR/html_report"
+else
+    echo "JMeter load test failed."
+    exit 1
+fi
