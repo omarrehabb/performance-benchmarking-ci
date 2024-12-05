@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# To make file fail on failures
+set -e
+
 # Function to check if JMeter is installed
 check_jmeter_installed() {
   if ! command -v jmeter &> /dev/null
@@ -20,12 +23,12 @@ docker ps --filter "name=teastore"
 
 
 
-# # Ensure Docker containers are running
-# docker ps | grep teastore
-# if [ $? -ne 0 ]; then
-#   echo "TeaStore containers are not running. Ensure the services are up before running the benchmark."
-#   exit 1
-# fi
+# Ensure Docker containers are running
+docker ps | grep teastore
+if [ $? -ne 0 ]; then
+  echo "TeaStore containers are not running. Ensure the services are up before running the benchmark."
+  exit 1
+fi
 
 # Define variables
 JMETER_TEST_PLAN="./performance_tests/teastore_load_test.jmx"  # Path to your .jmx test plan

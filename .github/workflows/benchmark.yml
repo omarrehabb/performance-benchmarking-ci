@@ -37,6 +37,14 @@ jobs:
         export DEPLOY=0
         ./build_docker.sh
 
+
+    - name: Start Docker Containers
+      run: |
+        echo "Starting docker containers..."
+        cd ./.github
+        ./start_containers.sh
+
+
     - name: Run Benchmark Script
       run: |
         bash ./.github/run-benchmark.sh
