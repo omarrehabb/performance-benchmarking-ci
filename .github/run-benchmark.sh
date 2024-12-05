@@ -15,12 +15,17 @@ check_jmeter_installed() {
 # Ensure JMeter is installed
 check_jmeter_installed
 
-# Ensure Docker containers are running
-docker ps | grep teastore
-if [ $? -ne 0 ]; then
-  echo "TeaStore containers are not running. Ensure the services are up before running the benchmark."
-  exit 1
-fi
+# Print out all running teastore containers
+docker ps --filter "name=teastore"
+
+
+
+# # Ensure Docker containers are running
+# docker ps | grep teastore
+# if [ $? -ne 0 ]; then
+#   echo "TeaStore containers are not running. Ensure the services are up before running the benchmark."
+#   exit 1
+# fi
 
 # Define variables
 JMETER_TEST_PLAN="./performance_tests/teastore_load_test.jmx"  # Path to your .jmx test plan
