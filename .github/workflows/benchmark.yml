@@ -42,6 +42,7 @@ jobs:
       run: |
         echo "Starting docker containers..."
         cd ./.github
+        chmod +x ./start_containers.sh
         ./start_containers.sh
 
 
