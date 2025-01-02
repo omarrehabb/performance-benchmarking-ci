@@ -42,12 +42,24 @@ jobs:
         echo "Listing available Docker images..."
         docker images
 
-    - name: Start Docker Containers
+    - name: Start Docker containers
       run: |
-        echo "Starting docker containers..."
-        cd ./.github
-        chmod +x ./start_containers.sh
-        ./start_containers.sh
+        cd ./TeaStore/examples/docker/
+        docker-compose -f docker-compose_default.yaml up -d
+      
+    - name: Stop Docker containers
+      if: always()
+      run: |
+        cd ./TeaStore/examples/docker/docker-compose_default.yaml
+        docker-compose -f docker-compose_default.yaml down
+      
+
+    # - name: Start Docker Containers
+    #   run: |
+    #     echo "Starting docker containers..."
+    #     cd ./.github
+    #     chmod +x ./start_containers.sh
+    #     ./start_containers.sh
 
 
     - name: Run Benchmark Script
