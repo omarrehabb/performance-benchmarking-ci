@@ -36,7 +36,11 @@ jobs:
         cd ./TeaStore/tools
         export DEPLOY=0
         ./build_docker.sh
-
+    
+    - name: List Docker Images
+      run: |
+        echo "Listing available Docker images..."
+        docker images
 
     - name: Start Docker Containers
       run: |
