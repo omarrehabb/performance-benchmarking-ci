@@ -26,6 +26,13 @@ jobs:
     - name: Set up Maven
       run: sudo apt-get install maven -y
 
+    - name: Install Docker Compose
+      run: |
+        sudo curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r '.tag_name')/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
+        docker-compose --version
+    
+
     - name: Build TeaStore project
       run: cd ./TeaStore && mvn clean package -DskipTests
 
@@ -50,7 +57,7 @@ jobs:
     - name: Stop Docker containers
       if: always()
       run: |
-        cd ./TeaStore/examples/docker/docker-compose_default.yaml
+        cd ./TeaStore/examples/docker/
         docker-compose -f docker-compose_default.yaml down
       
 
