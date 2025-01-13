@@ -58,6 +58,12 @@ jobs:
     - name: Run Benchmark Script
       run: |
         bash ./.github/run-benchmark.sh
+
+    - name: Upload Results
+      uses: actions/upload-artifact@v3
+      with:
+          name: jmeter-results
+          path: ./performance_tests/results
         
         
     - name: Stop Docker containers
