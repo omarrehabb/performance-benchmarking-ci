@@ -7,7 +7,7 @@ set -e
 check_jmeter_installed() {
   if ! command -v jmeter &> /dev/null; then
       echo "JMeter could not be found, installing JMeter..."
-      wget https://dlcdn.apache.org/jmeter/binaries/apache-jmeter-5.6.2.tgz
+      wget https://dlcdn.apache.org/jmeter/binaries/apache-jmeter-5.6.2.tgz -O apache-jmeter-5.6.2.tgz
       tar -xzf apache-jmeter-5.6.2.tgz
       export PATH=$PATH:$(pwd)/apache-jmeter-5.6.2/bin
   else
