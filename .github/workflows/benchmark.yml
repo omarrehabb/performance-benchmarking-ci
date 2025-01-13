@@ -53,22 +53,15 @@ jobs:
       run: |
         cd ./TeaStore/examples/docker/
         docker-compose -f docker-compose_default.yaml up -d
-      
+        
+        
+    - name: Run Benchmark Script
+      run: |
+        bash ./.github/run-benchmark.sh
+        
+        
     - name: Stop Docker containers
       if: always()
       run: |
         cd ./TeaStore/examples/docker/
         docker-compose -f docker-compose_default.yaml down
-      
-
-    # - name: Start Docker Containers
-    #   run: |
-    #     echo "Starting docker containers..."
-    #     cd ./.github
-    #     chmod +x ./start_containers.sh
-    #     ./start_containers.sh
-
-
-    - name: Run Benchmark Script
-      run: |
-        bash ./.github/run-benchmark.sh
