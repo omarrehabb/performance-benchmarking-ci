@@ -54,10 +54,11 @@ jobs:
         cd ./TeaStore/examples/docker/
         docker-compose -f docker-compose_default.yaml up -d
         
-    - name: Debug Network Connectivity
+    - name: Debug Network Connectivity to Archive
       run: |
-        ping -c 4 dlcdn.apache.org
-        wget --spider https://dlcdn.apache.org/jmeter/binaries/apache-jmeter-5.6.2.tgz
+        ping -c 4 archive.apache.org
+        wget --spider https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.6.2.tgz
+  
           
     
     - name: Install Latest JMeter
