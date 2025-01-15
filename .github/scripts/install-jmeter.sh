@@ -5,7 +5,7 @@ set -e
 
 # Variables
 JMETER_VERSION="5.6.2"
-JMETER_URL="https://dlcdn.apache.org/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz"
+JMETER_URL="https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz"
 INSTALL_DIR="/opt/apache-jmeter-${JMETER_VERSION}"
 
 # Download and install JMeter
