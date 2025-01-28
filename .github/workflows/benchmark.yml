@@ -53,24 +53,15 @@ jobs:
       run: |
         cd ./TeaStore/examples/docker/
         docker-compose -f docker-compose_default.yaml up -d
-        
-    - name: Debug Network Connectivity to Archive
-      run: |
-        ping -c 4 archive.apache.org
-        wget --spider https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.6.2.tgz
-  
-          
-    
-    - name: Install Latest JMeter
-      run: |
-        chmod +x ./.github/scripts/install-jmeter.sh
-        sudo ./.github/scripts/install-jmeter.sh
 
-    - name: Verify JMeter Installation
+
+    - name: Ensure JMeter is Extracted
       run: |
-        jmeter -v
-  
-    
+        if [ ! -d ./tools/apache-jmeter-5.6.2 ]; then
+          echo "Error: JMeter directory is missing in tools. Ensure it's committed to the repository."
+          exit 1
+        fi
+          
     - name: Run Benchmark Script
       run: |
         bash ./.github/scripts/run-benchmark.sh

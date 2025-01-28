@@ -1,35 +1,22 @@
 #!/bin/bash
+set -e  # Exit immediately on any errors
 
-# Exit on any failure
-set -e
-
-# Variables
+# Define variables
 JMETER_VERSION="5.6.2"
-JMETER_URL="https://dlcdn.apache.org/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz"
-INSTALL_DIR="/opt/apache-jmeter-${JMETER_VERSION}"
-RESULTS_DIR="./performance_tests/results"
+JMETER_DIR=".github/tools/apache-jmeter-${JMETER_VERSION}"
+RESULTS_DIR=".github/performance_tests/results"
 HTML_REPORT_DIR="$RESULTS_DIR/html_report"
-JMETER_TEST_PLAN="./performance_tests/teastore_load_test.jmx"
+JMETER_TEST_PLAN=".github/performance_tests/teastore_load_test.jmx"
 RESULTS_FILE="$RESULTS_DIR/results_$(date +%Y%m%d_%H%M%S).jtl"
 
-# Function to check if JMeter is installed
-install_jmeter() {
-  if ! command -v jmeter &> /dev/null; then
-      echo "JMeter not found. Installing JMeter version ${JMETER_VERSION}..."
-      sudo wget -q $JMETER_URL -O /tmp/apache-jmeter-${JMETER_VERSION}.tgz
-      sudo mkdir -p $INSTALL_DIR
-      sudo tar -xzf /tmp/apache-jmeter-${JMETER_VERSION}.tgz -C /opt
-      echo "export PATH=$INSTALL_DIR/bin:\$PATH" | sudo tee /etc/profile.d/jmeter.sh > /dev/null
-      source /etc/profile.d/jmeter.sh
-      echo "JMeter installed successfully."
-  else
-      echo "JMeter is already installed."
-      jmeter -v
-  fi
-}
+# Ensure JMeter directory exists
+if [ ! -d "$JMETER_DIR" ]; then
+    echo "Error: JMeter directory not found at $JMETER_DIR. Ensure you have placed JMeter in the tools folder."
+    exit 1
+fi
 
-# Install JMeter if necessary
-install_jmeter
+# Add JMeter to PATH
+export PATH=$JMETER_DIR/bin:$PATH
 
 # Ensure results directory exists
 mkdir -p "$RESULTS_DIR"
