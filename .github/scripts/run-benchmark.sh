@@ -1,18 +1,26 @@
 #!/bin/bash
-set -e  # Exit immediately on any errors
+set -e  # Exit on any errors
 
 # Define variables
 JMETER_VERSION="5.6.2"
-JMETER_DIR=".github/tools/apache-jmeter-${JMETER_VERSION}.tgz"
-RESULTS_DIR=".github/performance_tests/results"
+JMETER_ARCHIVE="../tools/apache-jmeter-${JMETER_VERSION}.tgz"  # Path relative to scripts/
+JMETER_DIR="../tools/apache-jmeter-${JMETER_VERSION}"          # Extracted JMeter directory
+RESULTS_DIR="../performance_tests/results"                     # Results folder relative to scripts/
 HTML_REPORT_DIR="$RESULTS_DIR/html_report"
-JMETER_TEST_PLAN=".github/performance_tests/teastore_load_test.jmx"
+JMETER_TEST_PLAN="../performance_tests/teastore_load_test.jmx"
 RESULTS_FILE="$RESULTS_DIR/results_$(date +%Y%m%d_%H%M%S).jtl"
 
-# Ensure JMeter directory exists
-if [ ! -d "$JMETER_DIR" ]; then
-    echo "Error: JMeter directory not found at $JMETER_DIR. Ensure you have placed JMeter in the tools folder."
+# Ensure the JMeter archive exists
+if [ ! -f "$JMETER_ARCHIVE" ]; then
+    echo "Error: JMeter archive not found at $JMETER_ARCHIVE. Ensure the file is in the tools folder."
     exit 1
+fi
+
+# Extract JMeter if the directory doesn't exist
+if [ ! -d "$JMETER_DIR" ]; then
+    echo "Extracting JMeter from $JMETER_ARCHIVE..."
+    mkdir -p ../tools
+    tar -xzf "$JMETER_ARCHIVE" -C ../tools
 fi
 
 # Add JMeter to PATH
