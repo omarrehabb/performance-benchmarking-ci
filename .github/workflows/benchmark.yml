@@ -57,7 +57,7 @@ jobs:
 
     - name: Ensure JMeter is Extracted
       run: |
-        if [ ! -d ./tools/apache-jmeter-5.6.2 ]; then
+        if [ ! -d .github/tools/apache-jmeter-5.6.2 ]; then
           echo "Error: JMeter directory is missing in tools. Ensure it's committed to the repository."
           exit 1
         fi
