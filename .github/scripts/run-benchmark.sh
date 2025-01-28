@@ -3,7 +3,7 @@ set -e  # Exit immediately on any errors
 
 # Define variables
 JMETER_VERSION="5.6.2"
-JMETER_DIR=".github/tools/apache-jmeter-${JMETER_VERSION}"
+JMETER_DIR=".github/tools/apache-jmeter-${JMETER_VERSION}.tgz"
 RESULTS_DIR=".github/performance_tests/results"
 HTML_REPORT_DIR="$RESULTS_DIR/html_report"
 JMETER_TEST_PLAN=".github/performance_tests/teastore_load_test.jmx"
