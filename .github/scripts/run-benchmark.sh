@@ -5,25 +5,17 @@ set -e  # Exit immediately on any errors
 REPO_ROOT=$(git rev-parse --show-toplevel)
 
 # Define variables
-JMETER_VERSION="5.6.2"
-JMETER_ARCHIVE="$REPO_ROOT/.github/tools/apache-jmeter-${JMETER_VERSION}.tgz"
+JMETER_VERSION="5.6.3"
 JMETER_DIR="$REPO_ROOT/.github/tools/apache-jmeter-${JMETER_VERSION}"
 RESULTS_DIR="$REPO_ROOT/.github/performance_tests/results"
 HTML_REPORT_DIR="$RESULTS_DIR/html_report"
 JMETER_TEST_PLAN="$REPO_ROOT/.github/performance_tests/teastore_load_test.jmx"
 RESULTS_FILE="$RESULTS_DIR/results_$(date +%Y%m%d_%H%M%S).jtl"
 
-# Ensure the JMeter archive exists
-if [ ! -f "$JMETER_ARCHIVE" ]; then
-    echo "Error: JMeter archive not found at $JMETER_ARCHIVE. Ensure the file is in .github/tools."
-    exit 1
-fi
-
-# Extract JMeter if the directory doesn't exist
+# Ensure the JMeter directory exists
 if [ ! -d "$JMETER_DIR" ]; then
-    echo "Extracting JMeter from $JMETER_ARCHIVE..."
-    mkdir -p "$REPO_ROOT/.github/tools"
-    tar -xzf "$JMETER_ARCHIVE" -C "$REPO_ROOT/.github/tools"
+    echo "Error: JMeter directory not found at $JMETER_DIR. Ensure JMeter is extracted in .github/tools."
+    exit 1
 fi
 
 # Add JMeter to PATH
