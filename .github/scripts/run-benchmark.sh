@@ -18,6 +18,9 @@ if [ ! -d "$JMETER_DIR" ]; then
     exit 1
 fi
 
+# Grant execute permissions to JMeter binaries
+chmod -R +x $JMETER_DIR/bin/
+
 # Add JMeter to PATH
 export PATH=$JMETER_DIR/bin:$PATH
 
