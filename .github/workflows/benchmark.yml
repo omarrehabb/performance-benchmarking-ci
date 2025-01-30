@@ -67,7 +67,7 @@ jobs:
         bash ./.github/scripts/run-benchmark.sh
 
     - name: Upload Results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
           name: jmeter-results
           path: ./performance_tests/results
