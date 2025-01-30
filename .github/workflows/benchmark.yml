@@ -71,8 +71,10 @@ jobs:
       with:
           name: jmeter-results
           path: ./performance_tests/results
-        
-        
+
+    - name: List JMeter Results Directory
+      run: ls -l .github/performance_tests/results/
+             
     - name: Stop Docker containers
       if: always()
       run: |
