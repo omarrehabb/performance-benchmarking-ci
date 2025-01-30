@@ -70,7 +70,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
           name: jmeter-results
-          path: ./performance_tests/results
+          path: .github/performance_tests/results
 
     - name: List JMeter Results Directory
       run: ls -l .github/performance_tests/results/
