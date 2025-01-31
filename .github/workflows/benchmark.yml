@@ -18,7 +18,7 @@ jobs:
         git clone https://github.com/DescartesResearch/TeaStore.git ./TeaStore
 
     - name: Set up Java 11
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         distribution: 'adopt'
         java-version: '11'
@@ -65,6 +65,18 @@ jobs:
     - name: Run Benchmark Script
       run: |
         bash ./.github/scripts/run-benchmark.sh
+
+
+
+    - name: Save Benchmark Data
+      uses: benchmark-action/github-action-benchmark@v1
+      with:
+        tool: 'customBash'  # Since we are using JMeter, we need a custom script
+        output-file-path: .github/performance_tests/results/results_*.jtl
+        external-data-json-path: .github/benchmarks/benchmark-data.json
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        auto-push: true
+      
 
     - name: Upload Results
       uses: actions/upload-artifact@v4
