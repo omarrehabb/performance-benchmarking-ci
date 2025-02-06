@@ -31,11 +31,9 @@ jobs:
         sudo curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r '.tag_name')/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
         sudo chmod +x /usr/local/bin/docker-compose
         docker-compose --version
-    
 
     - name: Build TeaStore project
       run: cd ./TeaStore && mvn clean package -DskipTests
-
 
     - name: Build Docker containers
       run: |
@@ -54,27 +52,42 @@ jobs:
         cd ./TeaStore/examples/docker/
         docker-compose -f docker-compose_default.yaml up -d
 
-
-    # - name: Ensure JMeter is Extracted
-    #   run: |
-    #     if [ ! -d .github/tools/apache-jmeter-5.6.2 ]; then
-    #       echo "Error: JMeter directory is missing in tools. Ensure it's committed to the repository."
-    #       exit 1
-    #     fi
-          
     - name: Run Benchmark Script
       run: |
         bash ./.github/scripts/run-benchmark.sh
-      
 
-    - name: Upload Results
+    - name: Convert JTL to JSON
+      run: |
+        python3 .github/scripts/jtl_to_json.py .github/performance_tests/results/*.jtl .github/performance_tests/results/benchmark-results.json
+
+    - name: Upload Benchmark Results (JSON)
       uses: actions/upload-artifact@v4
       with:
-          name: jmeter-results
-          path: .github/performance_tests/results
+          name: benchmark-results
+          path: .github/performance_tests/results/benchmark-results.json
+          if-no-files-found: warn
 
-    - name: List JMeter Results Directory
-      run: ls -l .github/performance_tests/results/
+    - name: Run Benchmark Analysis
+      uses: benchmark-action/github-action-benchmark@v1
+      with:
+        tool: customSmallerIsBetter
+        output-file-path: .github/performance_tests/results/benchmark-results.json
+        external-data-json-path: .github/benchmarks/benchmark-data.json
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        auto-push: true
+        name: Benchmark Results
+        gh-pages-branch: gh-pages
+        benchmark-data-dir-path: dev/bench
+        skip-fetch-gh-pages: false
+        comment-always: false
+        summary-always: false
+        save-data-file: true
+        comment-on-alert: false
+        alert-threshold: 200%
+        fail-on-alert: false
+             
+    # - name: List JMeter Results Directory
+    #   run: ls -l .github/performance_tests/results/
              
     - name: Stop Docker containers
       if: always()
