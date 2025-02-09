@@ -86,10 +86,6 @@ jobs:
         comment-on-alert: false
         alert-threshold: 200%
         fail-on-alert: false
-    
-             
-    # - name: List JMeter Results Directory
-    #   run: ls -l .github/performance_tests/results/
              
     - name: Stop Docker containers
       if: always()
