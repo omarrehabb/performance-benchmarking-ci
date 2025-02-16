@@ -71,21 +71,13 @@ jobs:
     - name: Run Benchmark Analysis
       uses: benchmark-action/github-action-benchmark@v1
       with:
+        name: 'Benchmark Results'
         tool: customSmallerIsBetter
         output-file-path: .github/performance_tests/results/benchmark-results.json
-        external-data-json-path: .github/benchmarks/benchmark-data.json
+        fail-on-alert: true
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        auto-push: false 
-        name: Benchmark Results
-        gh-pages-branch: gh-pages
-        benchmark-data-dir-path: dev/bench
-        skip-fetch-gh-pages: false
-        comment-always: false
-        summary-always: false
-        save-data-file: true
-        comment-on-alert: false
-        alert-threshold: 200%
-        fail-on-alert: false
+        auto-push: true 
+        # gh-pages-branch: gh-pages
              
     - name: Stop Docker containers
       if: always()
