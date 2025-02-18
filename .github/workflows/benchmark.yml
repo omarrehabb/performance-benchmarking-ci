@@ -68,17 +68,17 @@ jobs:
           path: .github/performance_tests/results/benchmark-results.json
           if-no-files-found: warn
 
-    - name: Run Benchmark Analysis
+    - name: Store Benchmark Result
       uses: benchmark-action/github-action-benchmark@v1
       with:
-        name: 'Benchmark Results'
-        tool: customSmallerIsBetter
+        name: 'Performance Benchmark'
+        tool: 'customSmallerIsBetter'
         output-file-path: .github/performance_tests/results/benchmark-results.json
         fail-on-alert: true
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        auto-push: true 
-        # gh-pages-branch: gh-pages
-             
+        auto-push: true
+  
+        
     - name: Stop Docker containers
       if: always()
       run: |
