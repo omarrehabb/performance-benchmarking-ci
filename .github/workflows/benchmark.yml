@@ -68,6 +68,12 @@ jobs:
           path: .github/performance_tests/results/benchmark-results.json
           if-no-files-found: warn
 
+
+    - name: Stash uncommitted changes
+      run: |
+        git stash --include-untracked
+      
+
     - name: Store Benchmark Result
       uses: benchmark-action/github-action-benchmark@v1
       with:
