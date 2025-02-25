@@ -29,6 +29,10 @@ fi
 # Grant execute permission only to ApacheJMeter.jar
 chmod +x "$JMETER_DIR/bin/ApacheJMeter.jar"
 
+# Grant execute permission to the JMeter launcher script
+chmod +x "$JMETER_DIR/bin/jmeter"
+
+
 # Add JMeter to PATH
 export PATH="$JMETER_DIR/bin:$PATH"
 
