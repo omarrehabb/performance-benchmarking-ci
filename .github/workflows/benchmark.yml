@@ -69,9 +69,9 @@ jobs:
           if-no-files-found: warn
 
 
-    # - name: Stash uncommitted changes
-    #   run: |
-    #     git stash --include-untracked
+    - name: Stash uncommitted changes
+      run: |
+        git stash --include-untracked
       
 
     - name: Store Benchmark Result
