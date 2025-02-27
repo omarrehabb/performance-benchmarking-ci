@@ -51,7 +51,12 @@ jobs:
       run: |
         cd ./TeaStore/examples/docker/
         docker-compose -f docker-compose_default.yaml up -d
-
+        
+            - name: Stash uncommitted changes
+              run: |
+                git stash --include-untracked
+              
+        
     - name: Run Benchmark Script
       run: |
         bash ./.github/scripts/run-benchmark.sh
@@ -71,11 +76,6 @@ jobs:
     - name: Check if benchmark JSON file exists
       run: ls -l .github/performance_tests/results/
 
-
-    - name: Stash uncommitted changes
-      run: |
-        git stash --include-untracked
-      
 
     - name: Store Benchmark Result
       uses: benchmark-action/github-action-benchmark@v1
