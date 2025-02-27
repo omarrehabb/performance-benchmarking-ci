@@ -52,11 +52,7 @@ jobs:
         cd ./TeaStore/examples/docker/
         docker-compose -f docker-compose_default.yaml up -d
         
-    - name: Stash uncommitted changes
-      run: |
-        git stash --include-untracked
-      
-        
+              
     - name: Run Benchmark Script
       run: |
         bash ./.github/scripts/run-benchmark.sh
@@ -73,10 +69,10 @@ jobs:
           path: .github/performance_tests/results/benchmark-results.json
           if-no-files-found: warn
 
-    - name: Check if benchmark JSON file exists
-      run: ls -l .github/performance_tests/results/
-
-
+    - name: Stash JMeter Changes
+      run: |
+        git stash push --include-untracked -m "Stashing JMeter file" .github/tools/apache-jmeter-5.6.3/bin/jmeter
+            
     - name: Store Benchmark Result
       uses: benchmark-action/github-action-benchmark@v1
       with:
