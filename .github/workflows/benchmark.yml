@@ -68,6 +68,9 @@ jobs:
           path: .github/performance_tests/results/benchmark-results.json
           if-no-files-found: warn
 
+    - name: Check if benchmark JSON file exists
+      run: ls -l .github/performance_tests/results/
+
 
     - name: Stash uncommitted changes
       run: |
