@@ -82,7 +82,6 @@ jobs:
         fail-on-alert: true
         github-token: ${{ secrets.GITHUB_TOKEN }}
         auto-push: true
-  
         
     - name: Stop Docker containers
       if: always()
