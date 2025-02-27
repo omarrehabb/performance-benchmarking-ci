@@ -52,10 +52,10 @@ jobs:
         cd ./TeaStore/examples/docker/
         docker-compose -f docker-compose_default.yaml up -d
         
-            - name: Stash uncommitted changes
-              run: |
-                git stash --include-untracked
-              
+    - name: Stash uncommitted changes
+      run: |
+        git stash --include-untracked
+      
         
     - name: Run Benchmark Script
       run: |
