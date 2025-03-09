@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1741491962722,
+  "lastUpdate": 1741493288517,
   "repoUrl": "https://github.com/omarrehabb/performance-benchmarking-ci",
   "entries": {
     "Performance Benchmark": [
@@ -968,6 +968,108 @@ window.BENCHMARK_DATA = {
           {
             "name": "Logout-1",
             "value": 4.02,
+            "unit": "ms"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Omar Elhefnawy",
+            "username": "omarrehabb",
+            "email": "omar.ehab.elhefnawy@gmail.com"
+          },
+          "committer": {
+            "name": "Omar Elhefnawy",
+            "username": "omarrehabb",
+            "email": "omar.ehab.elhefnawy@gmail.com"
+          },
+          "id": "20a03a4568d16f49dc978ef3000e99df4a5c8b77",
+          "message": "Adding workflow dispatch button",
+          "timestamp": "2025-03-06T07:19:02Z",
+          "url": "https://github.com/omarrehabb/performance-benchmarking-ci/commit/20a03a4568d16f49dc978ef3000e99df4a5c8b77"
+        },
+        "date": 1741493288090,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Home",
+            "value": 17.35,
+            "unit": "ms"
+          },
+          {
+            "name": "Login",
+            "value": 16.76,
+            "unit": "ms"
+          },
+          {
+            "name": "Login-0",
+            "value": 10.86,
+            "unit": "ms"
+          },
+          {
+            "name": "Login-1",
+            "value": 5.82,
+            "unit": "ms"
+          },
+          {
+            "name": "List Products",
+            "value": 12.24,
+            "unit": "ms"
+          },
+          {
+            "name": "Look at Product",
+            "value": 18.59,
+            "unit": "ms"
+          },
+          {
+            "name": "Add Product to Cart",
+            "value": 19.59,
+            "unit": "ms"
+          },
+          {
+            "name": "Add Product to Cart-0",
+            "value": 3.9,
+            "unit": "ms"
+          },
+          {
+            "name": "Add Product to Cart-1",
+            "value": 15.62,
+            "unit": "ms"
+          },
+          {
+            "name": "List Products with different page",
+            "value": 12.01,
+            "unit": "ms"
+          },
+          {
+            "name": "Add Product 2 to Cart",
+            "value": 19.01,
+            "unit": "ms"
+          },
+          {
+            "name": "Add Product 2 to Cart-0",
+            "value": 3.74,
+            "unit": "ms"
+          },
+          {
+            "name": "Add Product 2 to Cart-1",
+            "value": 15.2,
+            "unit": "ms"
+          },
+          {
+            "name": "Logout",
+            "value": 6.34,
+            "unit": "ms"
+          },
+          {
+            "name": "Logout-0",
+            "value": 2.25,
+            "unit": "ms"
+          },
+          {
+            "name": "Logout-1",
+            "value": 4.03,
             "unit": "ms"
           }
         ]
