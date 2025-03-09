@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1741503630886,
+  "lastUpdate": 1741504817382,
   "repoUrl": "https://github.com/omarrehabb/performance-benchmarking-ci",
   "entries": {
     "Performance Benchmark": [
@@ -1478,6 +1478,53 @@ window.BENCHMARK_DATA = {
           {
             "name": "Logout-1",
             "value": 3.9,
+            "unit": "ms"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Omar Elhefnawy",
+            "username": "omarrehabb",
+            "email": "omar.ehab.elhefnawy@gmail.com"
+          },
+          "committer": {
+            "name": "Omar Elhefnawy",
+            "username": "omarrehabb",
+            "email": "omar.ehab.elhefnawy@gmail.com"
+          },
+          "id": "20a03a4568d16f49dc978ef3000e99df4a5c8b77",
+          "message": "Adding workflow dispatch button",
+          "timestamp": "2025-03-06T07:19:02Z",
+          "url": "https://github.com/omarrehabb/performance-benchmarking-ci/commit/20a03a4568d16f49dc978ef3000e99df4a5c8b77"
+        },
+        "date": 1741504816851,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Home",
+            "value": 2896.25,
+            "unit": "ms"
+          },
+          {
+            "name": "Login",
+            "value": 2933.82,
+            "unit": "ms"
+          },
+          {
+            "name": "Login-0",
+            "value": 300.67,
+            "unit": "ms"
+          },
+          {
+            "name": "Login-1",
+            "value": 975,
+            "unit": "ms"
+          },
+          {
+            "name": "List Products",
+            "value": 0,
             "unit": "ms"
           }
         ]
